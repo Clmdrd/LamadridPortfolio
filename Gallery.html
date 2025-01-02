@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <link rel ="stylesheet" href = "chatbot.css">
+    <style>
+        html, body {
+            height: 100%; /* Set height to 100% for both html and body */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+    
+        body {
+            font-family: sans-serif;
+            background-image: url('Background1.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            background-repeat: repeat; 
+        }
+    
+        header {
+          background-color: rgba(51, 51, 51, 0.8); /* Slightly transparent background */
+          color: white;
+          padding: 10px; /* Add some padding for aesthetics */
+          position: absolute; /* Position the header absolutely */
+          top: 0; /* Align to the top */
+          left: 0; /* Align to the left */
+          width: 100%; /* Make the header full width */
+          display: flex; /* Use flexbox for alignment */
+          align-items: center; /* Center items vertically */
+        }
+    
+        header img {
+          height: 40px; /* Set a height for the logo */
+          margin-right: 10px; /* Space between logo and links */
+        }
+    
+        header a {
+          color: white;
+          text-decoration: none;
+          margin-left: 10px;
+          padding: 5px 10px; /* Add some padding for better hover effect */
+          transition: transform 0.3s ease, color 0.3s ease; /* Smooth transition for the hover effect */
+        }
+    
+        header a:hover {
+          transform: scale(1.1); /* Scale up the link on hover */
+          color: #ffcc00; /* Change color on hover (optional) */
+        }
+    
+        .gallery {
+          display: grid; /* Use CSS Grid for layout */
+          grid-template-columns: repeat(4, 1fr); /* 4 columns */
+          gap: 10px; /* Space between images */
+          padding: 20px; /* Padding around the gallery */
+          margin: 100px auto; /* Center the gallery and add top margin */
+          max-width: 1200px; /* Max width for the gallery */
+        }
+    
+        .gallery img {
+          width: 100%; /* Make images responsive */
+          height: auto; /* Maintain aspect ratio */
+          border: 1px solid #ccc; /* Optional border */
+        }
+        .description {
+          margin-top: 5px; /* Space between image and description */
+          font-size: 1em; /* Font size for the description */
+          color: #333; /* Color for the description text */
+          transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
+          padding: 5px; /* Add some padding for better appearance */
+         border-radius: 4px; /* Optional: rounded corners */
+        }
+
+        .description:hover {
+         background-color: rgba(255, 204, 0, 0.5); /* Highlight color on hover */
+         color: #000; /* Change text color on hover */
+          }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="logo1.jfif" alt="Logo"> <!-- Add your logo here -->
+        <a href="index.html">Home</a>
+        <a href="Gallery.html">Artworks</a>
+        <a href="Contact.html">Contact</a>
+    </header>
+
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="image1.jpg" alt="Image 1">
+            <div class="description">This is my sketch for the Templetto Chapel</div>
+        </div>
+        <div class="gallery-item">
+            <img src="image2.jpg" alt="Image 2">
+            <div class="description">This is a sketch of my Perspective idea</div>
+        </div>
+        <div class="gallery-item">
+            <img src="image3.jpg" alt="Image 3">
+            <div class="description">This is my pyramid art</div>
+        </div>
+        <div class="gallery-item">
+            <img src="image4.jpg" alt="Image 4">
+            <div class="description">This is the Hagia Sophia building</div>
+        </div>
+        <div class="gallery-item">
+            <img src="image5.jpg" alt="Image 5">
+            <div class="description">This is my modern house model</div>
+        </div>
+        <div class="gallery-item">
+            <img src="image6.jpg" alt="Image 6">
+            <div class="description">These are some Lavatory essentials I drew</div>
+        </div>
+        <div class="gallery-item">
+            <img src="image7.jpg" alt="Image 7">
+            <div class="description">This is a sample floor plan</div>
+        </div>
+        <div class="gallery-item">
+            <img src="image8.jpg" alt="Image 8">
+            <div class="description">This is the MENHIR de CHAMP-DOLENT Monolith</div>
+        </div>
+    </div>
+    <div class="bot">
+      <div class="chatbot">
+        <div class="chat-header" onclick="toggleChatBody()">Chat with us!</div>
+        <div class="chat-body" id="chatBody">
+            <div id="chatMessages"></div>
+            <div class="chat-footer">
+                <input type="text" id="userInput" placeholder="Type a message..." onkeypress="handleEnterKey(event)">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+    </div>
+  
+    <script>
+      const chatBody = document.getElementById('chatBody');
+    
+    function toggleChatBody() {
+      console.log("Header clicked!");
+      chatBody.style.display = chatBody.style.display === 'block' ? 'none' : 'block';
+    }
+    
+    
+     function handleEnterKey(event) {
+      if (event.key === 'Enter') {
+     sendMessage();
+     }
+    }
+    
+     const chatMessages = document.getElementById('chatMessages');
+    
+     function appendMessage(content, className) {
+     const messageDiv = document.createElement('div');
+     messageDiv.textContent = content;
+     messageDiv.className = `message ${className}`;
+     chatMessages.appendChild(messageDiv);
+              chatMessages.scrollTop = chatMessages.scrollHeight;
+          }
+    
+          function sendMessage() {
+              const userInput = document.getElementById('userInput');
+              const userMessage = userInput.value.trim();
+    
+              if (userMessage) {
+                  appendMessage(userMessage, 'user-message');
+                  userInput.value = '';
+                  botReply(userMessage);
+              }
+          }
+    
+          function botReply(message) {
+              const lowerCaseMessage = message.toLowerCase();
+              let botMessage;
+    
+              if (lowerCaseMessage.includes('hello')) {
+                  botMessage = 'Hi there! How can I help you today?';
+              } else if (lowerCaseMessage.includes('how are you')) {
+                  botMessage = 'I am just a bot, but I am doing great! How about you?';
+              } else if (lowerCaseMessage.includes('bye')) {
+                  botMessage = 'Goodbye! Have a great day!';
+              } else {
+                  botMessage = "I'm not sure how to respond to that. Can you rephrase?";
+              }
+    
+              appendMessage(botMessage, 'bot-message');
+          }
+    
+    
+    </script>
+
+</body>
+</html>
